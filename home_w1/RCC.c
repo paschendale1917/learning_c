@@ -2,26 +2,26 @@
 
 
 void set_sysclk168(void){
-	//âêëþ÷àåì òàêòèðîâàíèå îò HSE
+	//Ð²ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¾Ñ‚ HSE
 	SET_BIT(RCC->CR,RCC_CR_HSEON);
 	while(READ_BIT(RCC->CR,RCC_CR_HSERDY));
 	
-	//íàñòðîéêà ôëýø
+	//Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ° Ñ„Ð»ÑÑˆ
 	SET_BIT(FLASH->ACR,FLASH_ACR_PRFTEN);
-	SET_BIT(FLASH->ACR,FLASH_ACR_LATENCY_6WS); //äëÿ ÷àñòîòû 168 ÌÃö(max freq) ïðè íàïðÿæåíèè ïèòàíèÿ >2.7v
+	SET_BIT(FLASH->ACR,FLASH_ACR_LATENCY_6WS); 			         //Ð´Ð»Ñ Ñ‡Ð°ÑÑ‚Ð¾Ñ‚Ñ‹ 168 ÐœÐ“Ñ†(max freq) Ð¿Ñ€Ð¸ Ð½Ð°Ð¿Ñ€ÑÐ¶ÐµÐ½Ð¸Ð¸ Ð¿Ð¸Ñ‚Ð°Ð½Ð¸Ñ >2.7v
 	
-	MODIFY_REG(RCC->PLLCFGR,RCC_PLLCFGR_PLLM,0x04<<RCC_PLLCFGR_PLLM_Pos); //â ðåôåðåíñå óêàçàíî, ÷òî ÷àñòîòà ïîñëå M äîëæíà áûòü â ðàéîíå 1-2ÌÃö, çäåñü ðåçîíàòîð íà 8 ÌÃö, ñîîòâåòñâåííî, äåëèòåëü M=4
-	MODIFY_REG(RCC->PLLCFGR,RCC_PLLCFGR_PLLN,0xA8<<RCC_PLLCFGR_PLLN_Pos); //ìíîæèòåëü N=168
-	MODIFY_REG(RCC->PLLCFGR,RCC_PLLCFGR_PLLP,0x00<<RCC_PLLCFGR_PLLP_Pos); //äåëèòåëü P=2
-	MODIFY_REG(RCC->PLLCFGR,RCC_PLLCFGR_PLLQ,0x04<<RCC_PLLCFGR_PLLQ_Pos); //äåëèòåëü Q=4 ÷àñòîòà ðàáîòû SDIO è åùå íåêîòîðîé ïåðèôåðèè(ñì.ðåôåðåíñ) íå äîëæíà ïðåâûøàòü 48 ÌÃö, äëÿ ýòîãî ñåé äåëèòåëü(168/4=42 ÌÃö)
-	SET_BIT(RCC->PLLCFGR,RCC_PLLCFGR_PLLSRC_HSE); 												//òàêòèðîâàíèå MAIN PLL îò HSE
+	MODIFY_REG(RCC->PLLCFGR,RCC_PLLCFGR_PLLM,0x04<<RCC_PLLCFGR_PLLM_Pos);    //Ð² Ñ€ÐµÑ„ÐµÑ€ÐµÐ½ÑÐµ ÑƒÐºÐ°Ð·Ð°Ð½Ð¾, Ñ‡Ñ‚Ð¾ Ñ‡Ð°ÑÑ‚Ð¾Ñ‚Ð° Ð¿Ð¾ÑÐ»Ðµ M Ð´Ð¾Ð»Ð¶Ð½Ð° Ð±Ñ‹Ñ‚ÑŒ Ð² Ñ€Ð°Ð¹Ð¾Ð½Ðµ 1-2ÐœÐ“Ñ†, Ð·Ð´ÐµÑÑŒ Ñ€ÐµÐ·Ð¾Ð½Ð°Ñ‚Ð¾Ñ€ Ð½Ð° 8 ÐœÐ“Ñ†, ÑÐ¾Ð¾Ñ‚Ð²ÐµÑ‚ÑÐ²ÐµÐ½Ð½Ð¾, Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ M=4
+	MODIFY_REG(RCC->PLLCFGR,RCC_PLLCFGR_PLLN,0xA8<<RCC_PLLCFGR_PLLN_Pos);    //Ð¼Ð½Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒ N=168
+	MODIFY_REG(RCC->PLLCFGR,RCC_PLLCFGR_PLLP,0x00<<RCC_PLLCFGR_PLLP_Pos);    //Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ P=2
+	MODIFY_REG(RCC->PLLCFGR,RCC_PLLCFGR_PLLQ,0x04<<RCC_PLLCFGR_PLLQ_Pos);    //Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ Q=4 Ñ‡Ð°ÑÑ‚Ð¾Ñ‚Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ SDIO Ð¸ ÐµÑ‰Ðµ Ð½ÐµÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¿ÐµÑ€Ð¸Ñ„ÐµÑ€Ð¸Ð¸(ÑÐ¼.Ñ€ÐµÑ„ÐµÑ€ÐµÐ½Ñ) Ð½Ðµ Ð´Ð¾Ð»Ð¶Ð½Ð° Ð¿Ñ€ÐµÐ²Ñ‹ÑˆÐ°Ñ‚ÑŒ 48 ÐœÐ“Ñ†, Ð´Ð»Ñ ÑÑ‚Ð¾Ð³Ð¾ ÑÐµÐ¹ Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ(168/4=42 ÐœÐ“Ñ†)
+	SET_BIT(RCC->PLLCFGR,RCC_PLLCFGR_PLLSRC_HSE); 				 //Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ MAIN PLL Ð¾Ñ‚ HSE
 	
-	MODIFY_REG(RCC->CFGR,RCC_CFGR_HPRE, RCC_CFGR_HPRE_DIV1);							//AHBprescaler =1(÷àñòîòà øèíû AHB ðàâíà PLLCLK
-	MODIFY_REG(RCC->CFGR,RCC_CFGR_PPRE1, RCC_CFGR_PPRE1_DIV4); 						//äåëèòåëü APB1 =4 168/4=42 ÌÃö
-	MODIFY_REG(RCC->CFGR,RCC_CFGR_PPRE2, RCC_CFGR_PPRE2_DIV2); 						//äåëèòåëü APB2 =2 168/2=84 ÌÃö
+	MODIFY_REG(RCC->CFGR,RCC_CFGR_HPRE, RCC_CFGR_HPRE_DIV1);	         //AHBprescaler =1(Ñ‡Ð°ÑÑ‚Ð¾Ñ‚Ð° ÑˆÐ¸Ð½Ñ‹ AHB Ñ€Ð°Ð²Ð½Ð° PLLCLK
+	MODIFY_REG(RCC->CFGR,RCC_CFGR_PPRE1, RCC_CFGR_PPRE1_DIV4); 		 //Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ APB1 =4 168/4=42 ÐœÐ“Ñ†
+	MODIFY_REG(RCC->CFGR,RCC_CFGR_PPRE2, RCC_CFGR_PPRE2_DIV2); 		 //Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ APB2 =2 168/2=84 ÐœÐ“Ñ†
 	
-	SET_BIT(RCC->CR,RCC_CR_PLLON); 																				//çàïóñêàåì pll
+	SET_BIT(RCC->CR,RCC_CR_PLLON); 						 //Ð·Ð°Ð¿ÑƒÑÐºÐ°ÐµÐ¼ pll
 	while(READ_BIT(RCC->CR,RCC_CR_PLLRDY));
-	MODIFY_REG(RCC->CFGR,RCC_CFGR_SW,0x02<<RCC_CFGR_SW_Pos);							//òàêòèðîâàíèå îò PLLRCLK 168 MHz
+	MODIFY_REG(RCC->CFGR,RCC_CFGR_SW,0x02<<RCC_CFGR_SW_Pos);		 //Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¾Ñ‚ PLLRCLK 168 MHz
 
 }
