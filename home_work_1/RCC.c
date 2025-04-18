@@ -1,6 +1,6 @@
 #include "RCC.h"
 void set_sysclk168(void){
-	//включаем тактирование от HSE
+	//врубаем тактирование от HSE
 	SET_BIT(RCC->CR,RCC_CR_HSEON);
 	while(READ_BIT(RCC->CR,RCC_CR_HSERDY));
 	
