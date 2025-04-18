@@ -24,21 +24,15 @@
 
 #include <stdio.h>
 
-char f0[]="   *   \n";
-char f1[]="  ***  \n";
-char f2[]=" ***** \n";
-char f3[]="*******\n";
-char f4[]=" HHOHH \n";
-char f5[]=" ZZZZZ \n";
+char f0[][10]={"   *   \n","  ***  \n"," ***** \n","*******\n"," HHOHH \n"," ZZZZZ \n"};
+
 
 int main(void)
 {
-	printf(f0);
-	printf(f1);
-	printf(f2);
-	printf(f3);
-	printf(f4);
-	printf(f5);
+	for(int i=0;i<6;i++){
+		printf(*(f0+i));
+	}
+
 	return 0;
 }
 
