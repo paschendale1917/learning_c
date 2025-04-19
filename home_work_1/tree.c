@@ -1,5 +1,3 @@
-
-
 #include <stdio.h>
 
 char f0[][9]={"   *   \n",
